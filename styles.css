@@ -350,6 +350,98 @@ h1.hero-title .line:nth-child(2) span{animation-delay:.44s;color:var(--rojo-dico
 }
 .instal-visual .badge-corner b{display:block;font-family:var(--ff-display);font-size:2.4rem;color:var(--oro);font-weight:700;}
 
+/* ===== GALERIA ===== */
+.gallery-grid{
+  margin-top:56px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:170px;
+  gap:14px;
+}
+.gallery-item{
+  position:relative;overflow:hidden;border-radius:4px;
+  grid-column:span 1;grid-row:span 1;
+  border:1px solid var(--marmol);
+  cursor:pointer;padding:0;display:block;width:100%;height:100%;
+}
+.gallery-item.g-large{grid-column:span 2;grid-row:span 2;}
+@media (max-width:900px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}
+  .gallery-item.g-large{grid-column:span 2;grid-row:span 1;}
+}
+@media (max-width:560px){
+  .gallery-grid{grid-template-columns:1fr;}
+  .gallery-item.g-large{grid-column:span 1;}
+}
+.gallery-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.gallery-item:hover img{transform:scale(1.08);}
+.gallery-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  width:100%;height:100%;
+  background:linear-gradient(155deg,var(--hueso-2) 0%,var(--marmol) 100%);
+  color:var(--carbon-50);
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+.gallery-item:hover .gallery-placeholder{background:linear-gradient(155deg,var(--marmol) 0%,#dcd0bd 100%);color:var(--rojo-dicosa);}
+.gallery-placeholder svg{width:30px;height:30px;}
+.gallery-placeholder span{font-family:var(--ff-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:0 10px;}
+.gallery-overlay{
+  position:absolute;inset:0;
+  background:rgba(27,23,20,.35);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .35s var(--ease);
+  pointer-events:none;
+}
+.gallery-item:hover .gallery-overlay{opacity:1;}
+.gallery-overlay svg{width:26px;height:26px;stroke:var(--hueso);}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(27,23,20,.94);
+  display:none;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .3s var(--ease);
+}
+.lightbox.open{display:flex;opacity:1;}
+.lightbox-content{
+  max-width:80vw;max-height:80vh;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+.lightbox-content img{max-width:80vw;max-height:70vh;object-fit:contain;border-radius:2px;}
+.lightbox-content .lb-placeholder{
+  width:min(80vw,560px);aspect-ratio:4/3;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(155deg,#2b2420 0%,var(--carbon) 100%);
+  color:rgba(250,246,240,.4);border-radius:2px;
+}
+.lightbox-content .lb-placeholder svg{width:44px;height:44px;}
+.lightbox-content .lb-placeholder span{font-family:var(--ff-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--hueso);}
+.lightbox-close{
+  position:absolute;top:26px;right:30px;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(250,246,240,.1);color:var(--hueso);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .3s var(--ease),transform .3s var(--ease);
+}
+.lightbox-close:hover{background:var(--rojo-dicosa);transform:rotate(90deg);}
+.lightbox-close svg{width:20px;height:20px;}
+.lightbox-nav{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(250,246,240,.1);color:var(--hueso);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .3s var(--ease);
+  margin:0 24px;
+}
+.lightbox-nav:hover{background:var(--rojo-dicosa);}
+.lightbox-nav svg{width:22px;height:22px;}
+@media (max-width:700px){
+  .lightbox-nav{width:40px;height:40px;margin:0 8px;}
+  .lightbox-close{top:16px;right:16px;}
+}
+
 /* ===== EMPRESAS (B2B) ===== */
 .empresas-section{
   background:var(--rojo-dicosa);color:var(--hueso);position:relative;overflow:hidden;

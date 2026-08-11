@@ -42,6 +42,59 @@ document.querySelectorAll('.zone').forEach(zone=>{
   });
 });
 
+// Gallery lightbox
+const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+const lightbox = document.getElementById('lightbox');
+const lightboxContent = document.getElementById('lightboxContent');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+let currentIndex = 0;
+
+function renderLightbox(index){
+  currentIndex = (index + galleryItems.length) % galleryItems.length;
+  const item = galleryItems[currentIndex];
+  const img = item.querySelector('img');
+  const placeholder = item.querySelector('.gallery-placeholder');
+  lightboxContent.innerHTML = '';
+
+  if(img.style.display !== 'none'){
+    const bigImg = document.createElement('img');
+    bigImg.src = img.src;
+    bigImg.alt = img.alt;
+    lightboxContent.appendChild(bigImg);
+  } else {
+    const lbPlaceholder = document.createElement('div');
+    lbPlaceholder.className = 'lb-placeholder';
+    lbPlaceholder.innerHTML = placeholder.querySelector('svg').outerHTML +
+      '<span>' + placeholder.querySelector('span').textContent + '</span>';
+    lightboxContent.appendChild(lbPlaceholder);
+  }
+}
+
+galleryItems.forEach((item, i)=>{
+  item.addEventListener('click', ()=>{
+    renderLightbox(i);
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+lightboxPrev.addEventListener('click', ()=>renderLightbox(currentIndex - 1));
+lightboxNext.addEventListener('click', ()=>renderLightbox(currentIndex + 1));
+document.addEventListener('keydown', (e)=>{
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') renderLightbox(currentIndex - 1);
+  if(e.key === 'ArrowRight') renderLightbox(currentIndex + 1);
+});
+
 // stop pulsing dots after first interaction
 let interacted = false;
 document.querySelectorAll('.zone').forEach(z=>{
