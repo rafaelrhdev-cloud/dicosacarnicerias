@@ -22,11 +22,12 @@
       <li><a href="#carnicerias">Carnicerías</a></li>
       <li><a href="#galeria">Galería</a></li>
       <li><a href="#empresas">Empresas</a></li>
+      <li><a href="#empleo">Empleo</a></li>
       <li><a href="#ubicacion">Contacto</a></li>
     </ul>
-    <a href="tel:4272640077" class="nav-cta">
+    <a href="tel:4272640077" class="nav-cta" id="navPhoneLink">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      01 (427) 264-0077
+      <span id="navPhoneText">01 (427) 264-0077</span>
     </a>
     <div class="burger"><span></span><span></span><span></span></div>
   </div>
@@ -348,10 +349,87 @@
     <div class="empresas-cta reveal">
       <h3>Solicita tu cotización</h3>
       <p>Cuéntanos qué necesitas y te contactamos el mismo día para armar tu pedido.</p>
-      <a href="https://wa.me/524272640077" class="btn btn-primary" target="_blank" rel="noopener">
+      <a href="https://wa.me/524272640077" class="btn btn-primary" target="_blank" rel="noopener" id="empresasWhatsappLink">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         Escribir por WhatsApp
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOLSA DE TRABAJO ===== -->
+<section class="section empleo-section" id="empleo">
+  <div class="wrap">
+    <div class="empleo-grid">
+      <div class="reveal">
+        <div class="eyebrow">Bolsa de trabajo</div>
+        <h2>Únete al equipo DICOSA</h2>
+        <p>Si te interesa trabajar con nosotros, cuéntanos de ti y adjunta tu CV. Revisamos cada solicitud y te contactamos si tu perfil encaja con alguna vacante.</p>
+
+        <div class="empleo-puestos" id="empleoPuestosTags">
+          <span>Cargando vacantes...</span>
+        </div>
+
+        <div class="vacante-detalle" id="vacanteDetalle" hidden>
+          <button type="button" class="vacante-detalle-close" id="vacanteDetalleClose" aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="vacante-detalle-tag">Vacante seleccionada</div>
+          <h3 id="vacanteDetalleTitle"></h3>
+          <p id="vacanteDetalleDesc"></p>
+          <button type="button" class="btn btn-primary vacante-detalle-btn" id="vacanteDetallePostular">
+            Postularme a este puesto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <form id="formEmpleo" class="empleo-form reveal" action="api/submit-application.php" method="POST" enctype="multipart/form-data">
+        <!-- Honeypot anti-spam, invisible para personas -->
+        <input type="text" name="campo_extra_no_llenar" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="empleo-form-grid">
+          <label>
+            <span>Nombre completo</span>
+            <input type="text" name="name" required>
+          </label>
+          <label>
+            <span>Teléfono</span>
+            <input type="tel" name="phone" required>
+          </label>
+          <label class="span-2">
+            <span>Correo</span>
+            <input type="email" name="email" required>
+          </label>
+          <label class="span-2">
+            <span>Puesto de interés</span>
+            <select name="position" id="empleoPositionSelect" required>
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option id="otroOption">Otro</option>
+            </select>
+          </label>
+          <label class="span-2">
+            <span>Cuéntanos brevemente de tu experiencia (opcional)</span>
+            <textarea name="message" rows="3"></textarea>
+          </label>
+          <label class="span-2 file-label">
+            <span>Adjunta tu CV (solo PDF, máx. 5MB)</span>
+            <div class="file-drop" id="cvDrop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+              <span id="cvFileName">Arrastra tu CV aquí o haz clic para elegirlo</span>
+              <input type="file" name="cv" id="cvInput" accept=".pdf" hidden>
+            </div>
+          </label>
+        </div>
+
+        <div class="empleo-form-actions">
+          <span class="empleo-status" id="empleoStatus"></span>
+          <button type="submit" class="btn btn-primary" id="empleoSubmitBtn">
+            Enviar solicitud
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -369,26 +447,26 @@
         <dl>
           <div>
             <dt>Dirección</dt>
-            <dd>Eje 6 Poniente 5, Col. Camino a Santa Cruz Nieto,<br>San Juan del Río, Qro., CP 76807<br>
-              <a class="dd-link" href="https://goo.gl/maps/HEv2CVhAo3ZYgqdX6" target="_blank" rel="noopener">Ver ruta en Google Maps →</a>
+            <dd id="ubicAddress">Eje 6 Poniente 5, Col. Camino a Santa Cruz Nieto,<br>San Juan del Río, Qro., CP 76807<br>
+              <a class="dd-link" href="https://goo.gl/maps/HEv2CVhAo3ZYgqdX6" target="_blank" rel="noopener" id="ubicMapsLink">Ver ruta en Google Maps →</a>
             </dd>
           </div>
           <div>
             <dt>Horario</dt>
-            <dd>Lunes a sábado: 6:00 AM – 5:00 PM<br>Domingo: 6:00 AM – 2:00 PM</dd>
+            <dd id="ubicHours">Lunes a sábado: 6:00 AM – 5:00 PM<br>Domingo: 6:00 AM – 2:00 PM</dd>
           </div>
           <div>
             <dt>Teléfono</dt>
-            <dd><a class="dd-link" href="tel:4272640077">01 (427) 264-0077</a></dd>
+            <dd><a class="dd-link" href="tel:4272640077" id="ubicPhoneLink">01 (427) 264-0077</a></dd>
           </div>
           <div>
             <dt>Correo</dt>
-            <dd><a class="dd-link" href="mailto:ventas@midicosa.com.mx">ventas@midicosa.com.mx</a></dd>
+            <dd><a class="dd-link" href="mailto:ventas@midicosa.com.mx" id="ubicEmailLink">ventas@midicosa.com.mx</a></dd>
           </div>
         </dl>
       </div>
       <div class="map-embed">
-        <iframe loading="lazy" src="https://www.google.com/maps?q=Eje+6+Poniente+5,+Camino+a+Santa+Cruz+Nieto,+San+Juan+del+Rio,+Qro&output=embed"></iframe>
+        <iframe loading="lazy" id="ubicMapEmbed" src="https://www.google.com/maps?q=Eje+6+Poniente+5,+Camino+a+Santa+Cruz+Nieto,+San+Juan+del+Rio,+Qro&output=embed"></iframe>
       </div>
     </div>
   </div>
@@ -414,9 +492,9 @@
       <div class="footer-col">
         <h4>Contacto</h4>
         <ul>
-          <li><a href="tel:4272640077">01 (427) 264-0077</a></li>
-          <li><a href="mailto:ventas@midicosa.com.mx">ventas@midicosa.com.mx</a></li>
-          <li><a href="https://goo.gl/maps/HEv2CVhAo3ZYgqdX6" target="_blank" rel="noopener">Cómo llegar</a></li>
+          <li><a href="tel:4272640077" id="footerPhoneLink">01 (427) 264-0077</a></li>
+          <li><a href="mailto:ventas@midicosa.com.mx" id="footerEmailLink">ventas@midicosa.com.mx</a></li>
+          <li><a href="https://goo.gl/maps/HEv2CVhAo3ZYgqdX6" target="_blank" rel="noopener" id="footerMapsLink">Cómo llegar</a></li>
         </ul>
       </div>
     </div>
@@ -428,7 +506,7 @@
 </footer>
 
 <!-- ===== FLOATING WHATSAPP ===== -->
-<a href="https://wa.me/524272640077" class="float-wa" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+<a href="https://wa.me/524272640077" class="float-wa" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" id="floatWhatsappLink">
   <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.39a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2m0 1.67c2.2 0 4.26.86 5.82 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.25-4.37c0-4.54 3.7-8.24 8.23-8.24M8.53 6.98c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.35.99 2.51c.12.16 1.7 2.6 4.13 3.65.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.1-.22-.16-.46-.28-.24-.12-1.43-.7-1.65-.79-.22-.08-.38-.12-.55.12-.16.24-.62.78-.76.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.4z"/></svg>
 </a>
 

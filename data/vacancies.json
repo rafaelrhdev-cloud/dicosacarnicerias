@@ -1,0 +1,37 @@
+[
+    {
+        "id": "v-carnicero",
+        "title": "Carnicero/a",
+        "description": "asdasdasdasd",
+        "active": true,
+        "created_at": "2026-08-13 00:00:00"
+    },
+    {
+        "id": "v-auxcarniceria",
+        "title": "Auxiliar de carnicería",
+        "description": "",
+        "active": true,
+        "created_at": "2026-08-13 00:00:00"
+    },
+    {
+        "id": "v-cajero",
+        "title": "Cajero/a",
+        "description": "",
+        "active": true,
+        "created_at": "2026-08-13 00:00:00"
+    },
+    {
+        "id": "v-chofer",
+        "title": "Chofer / repartidor",
+        "description": "",
+        "active": true,
+        "created_at": "2026-08-13 00:00:00"
+    },
+    {
+        "id": "v-auxadmin",
+        "title": "Auxiliar administrativo",
+        "description": "",
+        "active": true,
+        "created_at": "2026-08-13 00:00:00"
+    }
+]
